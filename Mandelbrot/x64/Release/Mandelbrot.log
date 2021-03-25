@@ -1,0 +1,7 @@
+﻿  Mandelbrot.cpp
+  Window.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 36 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Mandelbrot.vcxproj -> C:\Programming Projects\OpenGLCPP\Mandelbrot\x64\Release\Mandelbrot.exe
