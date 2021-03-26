@@ -16,8 +16,8 @@ float vertices[] =
 
 int elements[] =
 {
-    1, 2, 3,
-    2, 3, 4
+    0, 1, 2,
+    1, 2, 3
 };
 
 std::string ShaderSource(std::string filepath)
@@ -70,95 +70,66 @@ bool CompileShader(GLuint& shader, GLenum type, std::string source, std::string&
 
 int main()
 {
-    int64_t fpsLimit = 16666;
-
-    std::cout << "Mandelbrot v0.0.0" << std::endl;
-
     sf::Window window;
     MakeWindow(window);
 
-    glewExperimental = GL_TRUE;
+    glewExperimental = true;
     glewInit();
 
-    glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
 
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-
-    std::cout << "vao" << std::endl;
+    std::cout << "Mandelbrot v0.1.0" << std::endl;
+    
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    std::cout << "vbo" << std::endl;
     GLuint vbo;
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    std::cout << "ebo" << std::endl;
     GLuint ebo;
     glGenBuffers(1, &ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 
-    std::cout << "15" << std::endl;
-    std::string compileLog = "";
     GLuint vertexShader;
     GLuint fragmentShader;
     std::string vertexSource = ShaderSource(VERTEX_SOURCE);
     std::string fragmentSource = ShaderSource(FRAGMENT_SOURCE);
+    std::string compileLog;
 
     if (!CompileShader(vertexShader, GL_VERTEX_SHADER, vertexSource, compileLog))
     {
-        std::cerr << "Could not compile \"" << VERTEX_SOURCE << "\"" << std::endl;
-        std::cerr << "Log:" << std::endl;
-        std::cerr << compileLog << std::endl;
-        throw 1;
+        std::cout << "Could not compile \"" VERTEX_SOURCE "\"" << std::endl;
+        std::cout << "Log:" << std::endl;
+        std::cout << compileLog;
+        exit(1);
     }
+    compileLog.clear();
+
     if (!CompileShader(fragmentShader, GL_FRAGMENT_SHADER, fragmentSource, compileLog))
     {
-        std::cerr << "Could not compile \"" << FRAGMENT_SOURCE << "\"" << std::endl;
-        std::cerr << "Log:" << std::endl;
-        std::cerr << compileLog << std::endl;
-        throw 1;
+        std::cout << "Could not compile \"" FRAGMENT_SOURCE "\"" << std::endl;
+        std::cout << "Log:" << std::endl;
+        std::cout << compileLog;
+        exit(1);
     }
 
     GLuint shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
-
-    glBindAttribLocation(shaderProgram, 0, "coord");
-
     glLinkProgram(shaderProgram);
-
-    int IsLinked;
-    int logLen;
-    char* shaderProgramInfoLog;
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &IsLinked);
-    if (IsLinked == GL_FALSE)
-    {
-        /* Noticed that glGetProgramiv is used to get the length for a shader program, not glGetShaderiv. */
-        glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &logLen);
-
-        /* The maxLength includes the NULL character */
-        shaderProgramInfoLog = (char*)malloc(logLen);
-
-        /* Notice that glGetProgramInfoLog, not glGetShaderInfoLog. */
-        glGetProgramInfoLog(shaderProgram, logLen, &logLen, shaderProgramInfoLog);
-
-        /* Handle the error in an appropriate way such as displaying a message or writing to a log file. */
-        /* In this simple program, we'll just leave */
-        std::cout << shaderProgramInfoLog << std::endl;
-        free(shaderProgramInfoLog);
-        return 1;
-    }
-
     glUseProgram(shaderProgram);
 
-    sf::Event windowEvent;
-    bool running = true;
+    GLint coordAttrib = glGetAttribLocation(shaderProgram, "coord");
+    glEnableVertexAttribArray(coordAttrib);
+    glVertexAttribPointer(coordAttrib, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
+    bool running = true;
+    sf::Event windowEvent;
     while (running)
     {
         while (window.pollEvent(windowEvent))
@@ -170,8 +141,10 @@ int main()
                 break;
             }
         }
+
+        glClearColor(0.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawElements(GL_TRIANGLES, 2, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         window.display();
     }
