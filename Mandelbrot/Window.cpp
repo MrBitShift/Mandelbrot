@@ -12,4 +12,7 @@ void MakeWindow(sf::Window& window)
 	settings.attributeFlags = sf::ContextSettings::Core;
 
 	window.create(sf::VideoMode(800, 600), "Mandelbrot", sf::Style::Close, settings);
+
+	window.setFramerateLimit(60);
+	window.setActive();
 }
