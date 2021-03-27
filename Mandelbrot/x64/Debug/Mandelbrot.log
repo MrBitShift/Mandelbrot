@@ -1,1 +1,5 @@
-﻿  Mandelbrot.vcxproj -> C:\Programming Projects\OpenGLCPP\Mandelbrot\x64\Debug\Mandelbrot.exe
+﻿  Mandelbrot.cpp
+C:\Programming Projects\OpenGLCPP\Mandelbrot\Mandelbrot\Mandelbrot.cpp(47,35): warning C4838: conversion from 'unsigned __int64' to 'int' requires a narrowing conversion
+C:\Programming Projects\OpenGLCPP\Mandelbrot\Mandelbrot\Mandelbrot.cpp(47,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Programming Projects\OpenGLCPP\Mandelbrot\Mandelbrot\Mandelbrot.cpp(170,65): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+  Mandelbrot.vcxproj -> C:\Programming Projects\OpenGLCPP\Mandelbrot\x64\Debug\Mandelbrot.exe

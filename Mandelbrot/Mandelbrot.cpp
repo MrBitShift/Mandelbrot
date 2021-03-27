@@ -79,7 +79,7 @@ int main()
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
 
-    std::cout << "Mandelbrot v1.0.0" << std::endl;
+    std::cout << "Mandelbrot v1.1.0" << std::endl;
     
     GLuint vao;
     glGenVertexArrays(1, &vao);

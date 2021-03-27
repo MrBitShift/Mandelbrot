@@ -16,7 +16,7 @@ float isMandelbrot()
 		yTmp = 2*x*y + Coord.y;
 		x = x*x - y*y + Coord.x;
 		y = yTmp;
-		if (x*x + y*y >= 100)
+		if (x*x + y*y >= 40)
 			break;
 	}
 	return i;
