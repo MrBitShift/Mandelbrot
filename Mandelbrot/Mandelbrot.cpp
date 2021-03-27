@@ -79,7 +79,7 @@ int main()
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
 
-    std::cout << "Mandelbrot v0.1.0" << std::endl;
+    std::cout << "Mandelbrot v1.0.0" << std::endl;
     
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -127,6 +127,15 @@ int main()
     GLint coordAttrib = glGetAttribLocation(shaderProgram, "coord");
     glEnableVertexAttribArray(coordAttrib);
     glVertexAttribPointer(coordAttrib, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+
+    glBindFragDataLocation(shaderProgram, 0, "outColor");
+
+    GLuint maxRepitionsUni = glGetUniformLocation(shaderProgram, "maxRepititions");
+    if (maxRepitionsUni == -1)
+    {
+        throw 1;
+    }
+    glUniform1i(maxRepitionsUni, 200);
 
     bool running = true;
     sf::Event windowEvent;

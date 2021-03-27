@@ -11,7 +11,7 @@ void MakeWindow(sf::Window& window)
 	settings.minorVersion = 6;
 	settings.attributeFlags = sf::ContextSettings::Core;
 
-	window.create(sf::VideoMode(800, 600), "Mandelbrot", sf::Style::Close, settings);
+	window.create(sf::VideoMode(900, 900), "Mandelbrot", sf::Style::Close, settings);
 
 	window.setFramerateLimit(60);
 	window.setActive();

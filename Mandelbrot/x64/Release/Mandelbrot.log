@@ -1,7 +1,28 @@
 ﻿  Mandelbrot.cpp
+C:\Programming Projects\OpenGLCPP\Mandelbrot\Mandelbrot\Mandelbrot.cpp(47,35): warning C4838: conversion from 'unsigned __int64' to 'int' requires a narrowing conversion
+C:\Programming Projects\OpenGLCPP\Mandelbrot\Mandelbrot\Mandelbrot.cpp(47,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Window.cpp
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 36 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  Mandelbrot.vcxproj -> C:\Programming Projects\OpenGLCPP\Mandelbrot\x64\Release\Mandelbrot.exe
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewEnableVertexAttribArray
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewBindVertexArray
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewUseProgram
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewVertexAttribPointer
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewGetShaderiv
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewDebugMessageCallback
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewCompileShader
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewGetAttribLocation
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewCreateShader
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewBindBuffer
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewCreateProgram
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewUniform1i
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewGetShaderInfoLog
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewBindFragDataLocation
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewGetUniformLocation
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewBufferData
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewAttachShader
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewShaderSource
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewGenVertexArrays
+Mandelbrot.obj : error LNK2001: unresolved external symbol glewExperimental
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewGenBuffers
+Mandelbrot.obj : error LNK2001: unresolved external symbol __glewLinkProgram
+Mandelbrot.obj : error LNK2001: unresolved external symbol glewInit
+C:\Programming Projects\OpenGLCPP\Mandelbrot\x64\Release\Mandelbrot.exe : fatal error LNK1120: 23 unresolved externals
