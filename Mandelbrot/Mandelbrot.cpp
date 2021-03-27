@@ -137,8 +137,26 @@ int main()
     }
     glUniform1i(maxRepitionsUni, 200);
 
+    GLuint centerUni = glGetUniformLocation(shaderProgram, "center");
+    if (centerUni == -1)
+    {
+        throw 1;
+    }
+    GLuint scaleUni = glGetUniformLocation(shaderProgram, "scale");
+    if (scaleUni == -1)
+    {
+        throw 1;
+    }
+
+    float centerX = 0;
+    float centerY = 0;
+    float scale = 1;
+    glUniform2f(centerUni, centerX, centerY);
+    glUniform1f(scaleUni, scale);
+
     bool running = true;
     sf::Event windowEvent;
+    sf::Vector2i prevMouse;
     while (running)
     {
         while (window.pollEvent(windowEvent))
@@ -148,6 +166,22 @@ int main()
             case sf::Event::Closed:
                 running = false;
                 break;
+            case sf::Event::MouseWheelMoved:
+                scale *= 1 - 0.05 * windowEvent.mouseWheel.delta;
+                glUniform1f(scaleUni, scale);
+                break;
+            case sf::Event::MouseMoved:
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+                {
+                    centerX += 
+                        ((float)prevMouse.x - (float)sf::Mouse::getPosition(window).x) * 2.f / (float)window.getSize().x
+                        * scale;
+                    centerY +=
+                        ((float)sf::Mouse::getPosition(window).y - (float)prevMouse.y) * 2.f / (float)window.getSize().y
+                        * scale;
+                    glUniform2f(centerUni, centerX, centerY);
+                }
+                prevMouse = sf::Mouse::getPosition(window);
             }
         }
 
