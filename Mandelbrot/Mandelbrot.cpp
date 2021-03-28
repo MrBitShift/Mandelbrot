@@ -79,7 +79,7 @@ int main()
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
 
-    std::cout << "Mandelbrot v1.1.0" << std::endl;
+    std::cout << "Mandelbrot v2.0.0" << std::endl;
     
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -135,7 +135,7 @@ int main()
     {
         throw 1;
     }
-    glUniform1i(maxRepitionsUni, 200);
+    glUniform1i(maxRepitionsUni, 250);
 
     GLuint centerUni = glGetUniformLocation(shaderProgram, "center");
     if (centerUni == -1)
@@ -148,11 +148,11 @@ int main()
         throw 1;
     }
 
-    float centerX = 0;
-    float centerY = 0;
-    float scale = 1;
-    glUniform2f(centerUni, centerX, centerY);
-    glUniform1f(scaleUni, scale);
+    double centerX = 0;
+    double centerY = 0;
+    double scale = 1;
+    glUniform2d(centerUni, centerX, centerY);
+    glUniform1d(scaleUni, scale);
 
     bool running = true;
     sf::Event windowEvent;
@@ -167,20 +167,22 @@ int main()
                 running = false;
                 break;
             case sf::Event::MouseWheelMoved:
-                scale *= 1 - 0.05 * windowEvent.mouseWheel.delta;
-                glUniform1f(scaleUni, scale);
+                scale *= 1.0 - 0.05 * (double)windowEvent.mouseWheel.delta;
+                glUniform1d(scaleUni, scale);
+                std::cout << scale << std::endl;
                 break;
             case sf::Event::MouseMoved:
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
                 {
                     centerX += 
-                        ((float)prevMouse.x - (float)sf::Mouse::getPosition(window).x) * 2.f / (float)window.getSize().x
+                        ((double)prevMouse.x - (double)sf::Mouse::getPosition(window).x) * 2.f / (double)window.getSize().x
                         * scale;
                     centerY +=
-                        ((float)sf::Mouse::getPosition(window).y - (float)prevMouse.y) * 2.f / (float)window.getSize().y
+                        ((double)sf::Mouse::getPosition(window).y - (double)prevMouse.y) * 2.f / (double)window.getSize().y
                         * scale;
-                    glUniform2f(centerUni, centerX, centerY);
+                    glUniform2d(centerUni, centerX, centerY);
                 }
+                //std::cout << "x, y: " << centerX << " " << centerY << std::endl;
                 prevMouse = sf::Mouse::getPosition(window);
             }
         }
